@@ -22,7 +22,7 @@ def lalala(message):
         print(response.json())
         if len(response.json()):
             price = round(response.json()[upper], 2)
-            bot.send_message(message.chat.id, "1 USD is equal => " + str(price) + ".")
+            bot.send_message(message.chat.id, "1 USD is equal " + str(price) + " " + message.text.upper() + ".")
         else:
             bot.send_message(message.chat.id, "Invalid currency please type correctly.")
  
