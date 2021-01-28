@@ -19,7 +19,7 @@ bot.command('quit', (ctx) => {
   ctx.leaveChat()
 })
 
-bot.on('text', (ctx) => {https://www.typingtest.com/
+bot.on('text', (ctx) => {
   const msg = ctx.message.text;
 
   if (typeof msg === 'string') {
@@ -41,8 +41,8 @@ bot.on('text', (ctx) => {https://www.typingtest.com/
             resp.on('end', () => {
               const value = JSON.parse(data)[exchenged];
               if (value) {
-                const calc = (value * Number(splittedMsg[0])).toLocaleString();
-                ctx.reply(`${convertedMsg} is ${calc.toFixed(2)}`);
+                const calc = (value * Number(splittedMsg[0]));
+                ctx.reply(`${convertedMsg} is ${new Intl.NumberFormat().format(calc)}`);
               } else {
                 ctx.reply(`Please write correct currency or keep syntax. /\help`);
               }
@@ -65,9 +65,9 @@ bot.on('text', (ctx) => {https://www.typingtest.com/
             });
 
             resp.on('end', () => {
-              const value = JSON.parse(data)[exchenged].toLocaleString();
+              const value = JSON.parse(data)[exchenged];
               if (value) {
-                ctx.reply(`${convertedMsg} is ${value.toFixed(2)}`);
+                ctx.reply(`${convertedMsg} is ${new Intl.NumberFormat().format(value)}`);
               } else {
                 ctx.reply(`Please write correct currency or keep syntax. /\help`);
               }
