@@ -8,9 +8,8 @@ const api = 'https://free.currconv.com/api/v7/convert?q=';
 const bot = new Telegraf('1560085394:AAFR7qg4IHvelmPP_9DuOBG9njJrxcdvsUQ')
 bot.start((ctx) => ctx.reply('Welcome'))
 bot.help((ctx) => ctx.reply(
-  `Currency Converter BOT. \n Please send me like like that syntax
-    'amd to usd' or '1000 amd to usd'.
-  `))
+  `Currency Converter BOT. \nPlease send me like that syntax\n
+  'amd to usd' or '1000 amd to usd'.`))
 
 bot.command('quit', (ctx) => {
   // Explicit usage
@@ -20,7 +19,7 @@ bot.command('quit', (ctx) => {
   ctx.leaveChat()
 })
 
-bot.on('text', (ctx) => {
+bot.on('text', (ctx) => {https://www.typingtest.com/
   const msg = ctx.message.text;
 
   if (typeof msg === 'string') {
@@ -52,8 +51,6 @@ bot.on('text', (ctx) => {
         } catch {
           ctx.reply(`Something went wrong. /\help`);
         }
-        
-        
         break;
       case 3:
         try {
