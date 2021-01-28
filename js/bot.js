@@ -41,7 +41,7 @@ bot.on('text', (ctx) => {https://www.typingtest.com/
             resp.on('end', () => {
               const value = JSON.parse(data)[exchenged];
               if (value) {
-                const calc = value * Number(splittedMsg[0]);
+                const calc = (value * Number(splittedMsg[0])).toLocaleString();
                 ctx.reply(`${convertedMsg} is ${calc.toFixed(2)}`);
               } else {
                 ctx.reply(`Please write correct currency or keep syntax. /\help`);
@@ -65,7 +65,7 @@ bot.on('text', (ctx) => {https://www.typingtest.com/
             });
 
             resp.on('end', () => {
-              const value = JSON.parse(data)[exchenged];
+              const value = JSON.parse(data)[exchenged].toLocaleString();
               if (value) {
                 ctx.reply(`${convertedMsg} is ${value.toFixed(2)}`);
               } else {
