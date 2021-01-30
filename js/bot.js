@@ -1,15 +1,37 @@
 const { Telegraf } = require('telegraf')
 const https = require('https');
+const fs = require('fs');
 
+// const sticker = fs.readFileSync('./static/welcome.tgs');
 const KEY = '3564835a8d9a1e1e1b67';
 const api = 'https://free.currconv.com/api/v7/convert?q=';
-// "+ upper +"&compact=ultra&apiKey="+config.KEY
+const LOGCHAT = '-590390872';
+
+const sendMsgWithLog = (ctx, msg, isStart, isFailed) => {
+    console.log(ctx.message.chat);
+
+  if (isStart) {
+    ctx.reply(msg);
+    ctx.reply(`Currency Converter BOT.\n Syntax 1000 usd to amd`);
+
+    // ctx.telegram.sendPhoto(ctx.message.chat.id, sticker);
+    fs.readFile('./logs/log.txt', 'utf8', function(err, data){ 
+      fs.writeFileSync('./logs/log.txt', `${data}, ${ctx.message.chat.id}: ${ctx.message.chat.first_name} ${ctx.message.chat.username}`);
+    }); 
+  } else {
+    ctx.reply(msg);
+    ctx.telegram.sendMessage(LOGCHAT, `${msg} ====> ${ctx.message.chat.first_name} ${ctx.message.chat.username}`);
+    if (isFailed) {
+      ctx.telegram.sendMessage(LOGCHAT, `Failed ==== >${ctx.message.text} ====> ${ctx.message.chat.first_name} ${ctx.message.chat.username}`);
+    }
+  }
+}
 
 const bot = new Telegraf('1560085394:AAFR7qg4IHvelmPP_9DuOBG9njJrxcdvsUQ')
-bot.start((ctx) => ctx.reply('Welcome'))
-bot.help((ctx) => ctx.reply(
+bot.start((ctx) => sendMsgWithLog(ctx, 'Welcome', true));
+bot.help((ctx) => sendMsgWithLog(ctx,
   `Currency Converter BOT. \nPlease send me like that syntax\n
-  'amd to usd' or '1000 amd to usd'.`))
+  'amd to usd' or '1000 amd to usd'.`));
 
 bot.command('quit', (ctx) => {
   // Explicit usage
@@ -42,14 +64,14 @@ bot.on('text', (ctx) => {
               const value = JSON.parse(data)[exchenged];
               if (value) {
                 const calc = (value * Number(splittedMsg[0]));
-                ctx.reply(`${convertedMsg} is ${new Intl.NumberFormat().format(calc)}`);
+                sendMsgWithLog(ctx,`${convertedMsg} is ${new Intl.NumberFormat().format(calc)}`);
               } else {
-                ctx.reply(`Please write correct currency or keep syntax. /\help`);
+                sendMsgWithLog(ctx,`Please write correct currency or keep syntax. /\help`, false, true);
               }
             });
           });
         } catch {
-          ctx.reply(`Something went wrong. /\help`);
+          sendMsgWithLog(ctx,`Something went wrong. /\help`);
         }
         break;
       case 3:
@@ -67,18 +89,18 @@ bot.on('text', (ctx) => {
             resp.on('end', () => {
               const value = JSON.parse(data)[exchenged];
               if (value) {
-                ctx.reply(`${convertedMsg} is ${new Intl.NumberFormat().format(value)}`);
+                sendMsgWithLog(ctx,`${convertedMsg} is ${new Intl.NumberFormat().format(value)}`);
               } else {
-                ctx.reply(`Please write correct currency or keep syntax. /\help`);
+                sendMsgWithLog(ctx,`Please write correct currency or keep syntax. /\help`, false, true);
               }
             });
           });
         } catch {
-          ctx.reply(`Something went wrong. /\help`);
+          sendMsgWithLog(ctx,`Something went wrong. /\help`, false, true);
         }
         break;
       default:
-        ctx.reply(`Please write a correctly. If you need a help /\help `);
+        sendMsgWithLog(ctx,`Please write a correctly. If you need a help /\help`, false, true);
         break;
     }
   }
