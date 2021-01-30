@@ -11,8 +11,7 @@ const sendMsgWithLog = (ctx, msg, isStart, isFailed) => {
     console.log(ctx.message.chat);
 
   if (isStart) {
-    ctx.reply(`Hello. I’m a bot and I will help you to easily convert currencies.`);
-    ctx.reply(`For example type me '10.7 usd to rub'\n or something like this syntax.`);
+    ctx.reply(`Hello. I’m a bot and I will help you to easily convert currencies.\nFor example type me '10.7 usd to rub'\n or something like this syntax.`);
 
     // ctx.telegram.sendPhoto(ctx.message.chat.id, sticker);
     fs.readFile('./logs/log.txt', 'utf8', function(err, data){ 
@@ -42,7 +41,7 @@ bot.command('quit', (ctx) => {
 })
 
 bot.on('text', (ctx) => {
-  const msg = ctx.message.text.replaceAll(',', '.');
+  const msg = ctx.message.text && ctx.message.text.replace(',', '.');
 
   if (typeof msg === 'string') {
     const convertedMsg = msg.replace(/\s\s+/g, ' ');
