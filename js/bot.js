@@ -11,8 +11,8 @@ const sendMsgWithLog = (ctx, msg, isStart, isFailed) => {
     console.log(ctx.message.chat);
 
   if (isStart) {
-    ctx.reply(msg);
-    ctx.reply(`Currency Converter BOT.\n Syntax 1000 usd to amd`);
+    ctx.reply(`Hello. I’m a bot and I will help you to easily convert currencies.`);
+    ctx.reply(`For example type me '10.7 usd to rub'\n or something like this syntax.`);
 
     // ctx.telegram.sendPhoto(ctx.message.chat.id, sticker);
     fs.readFile('./logs/log.txt', 'utf8', function(err, data){ 
@@ -31,7 +31,7 @@ const bot = new Telegraf('1560085394:AAFR7qg4IHvelmPP_9DuOBG9njJrxcdvsUQ')
 bot.start((ctx) => sendMsgWithLog(ctx, 'Welcome', true));
 bot.help((ctx) => sendMsgWithLog(ctx,
   `Currency Converter BOT. \nPlease send me like that syntax\n
-  'amd to usd' or '1000 amd to usd'.`));
+  'amd to usd' or '10.8 eur to amd'.`));
 
 bot.command('quit', (ctx) => {
   // Explicit usage
