@@ -42,7 +42,7 @@ bot.command('quit', (ctx) => {
 })
 
 bot.on('text', (ctx) => {
-  const msg = ctx.message.text;
+  const msg = ctx.message.text.replaceAll(',', '.');
 
   if (typeof msg === 'string') {
     const convertedMsg = msg.replace(/\s\s+/g, ' ');
