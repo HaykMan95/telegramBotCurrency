@@ -10,7 +10,7 @@ const LOGCHAT = '-590390872';
 const sendMsgWithLog = (ctx, msg, isStart, isFailed) => {
   if (isStart) {
     // ctx.replyWithSticker('123123jkbhj6b');
-    ctx.reply(`Բարև, ես բոտ եմ և քեզ կոգնեմ հեշտությամբ հաշվել տարադրամի փոխարժեքները։\nՊարզապես ուղարկիր տեքստը հետևյալ ֆորմատով.\n '10.7 usd to amd'`);
+    ctx.reply(`Բարև, ես բոտ եմ և քեզ կօգնեմ հեշտությամբ հաշվել տարադրամի փոխարժեքները։\nՊարզապես ուղարկիր տեքստը հետևյալ ֆորմատով.\n '10.7 usd to amd'`);
 
     // ctx.telegram.sendPhoto(ctx.message.chat.id, sticker);
     fs.readFile('./logs/log.txt', 'utf8', function(err, data){ 
