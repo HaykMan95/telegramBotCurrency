@@ -8,10 +8,9 @@ const api = 'https://free.currconv.com/api/v7/convert?q=';
 const LOGCHAT = '-590390872';
 
 const sendMsgWithLog = (ctx, msg, isStart, isFailed) => {
-    console.log(ctx.message.chat);
-
   if (isStart) {
-    ctx.reply(`Hello. I’m a bot and I will help you to easily convert currencies.\nFor example type me '10.7 usd to rub'\n or something like this syntax.`);
+    // ctx.replyWithSticker('123123jkbhj6b');
+    ctx.reply(`Բարև, ես բոտ եմ և քեզ կոգնեմ հեշտությամբ հաշվել տարադրամի փոխարժեքները։\nՊարզապես ուղարկիր տեքստը հետևյալ ֆորմատով.\n '10.7 usd to amd'`);
 
     // ctx.telegram.sendPhoto(ctx.message.chat.id, sticker);
     fs.readFile('./logs/log.txt', 'utf8', function(err, data){ 
@@ -19,9 +18,9 @@ const sendMsgWithLog = (ctx, msg, isStart, isFailed) => {
     }); 
   } else {
     ctx.reply(msg);
-    ctx.telegram.sendMessage(LOGCHAT, `${msg} ====> ${ctx.message.chat.first_name} ${ctx.message.chat.username}`);
+    ctx.telegram.sendMessage(LOGCHAT, `${msg} ====> ${ctx.message.chat.first_name} | @${ctx.message.chat.username}`);
     if (isFailed) {
-      ctx.telegram.sendMessage(LOGCHAT, `Failed ==== >${ctx.message.text} ====> ${ctx.message.chat.first_name} ${ctx.message.chat.username}`);
+      ctx.telegram.sendMessage(LOGCHAT, `Failed ==== >${ctx.message.text} ====> ${ctx.message.chat.first_name} | @${ctx.message.chat.username}`);
     }
   }
 }
@@ -29,8 +28,7 @@ const sendMsgWithLog = (ctx, msg, isStart, isFailed) => {
 const bot = new Telegraf('1560085394:AAFR7qg4IHvelmPP_9DuOBG9njJrxcdvsUQ')
 bot.start((ctx) => sendMsgWithLog(ctx, 'Welcome', true));
 bot.help((ctx) => sendMsgWithLog(ctx,
-  `Currency Converter BOT. \nPlease send me like that syntax\n
-  'amd to usd' or '10.8 eur to amd'.`));
+  `Խնդրում եմ՝ ուղարկել տեքստը հետևյալ ֆորմատով.\n'amd to usd' կամ '100 eur to amd'.`));
 
 bot.command('quit', (ctx) => {
   // Explicit usage
@@ -65,7 +63,7 @@ bot.on('text', (ctx) => {
                 const calc = (value * Number(splittedMsg[0]));
                 sendMsgWithLog(ctx,`${convertedMsg} is ${new Intl.NumberFormat().format(calc)}`);
               } else {
-                sendMsgWithLog(ctx,`Please write correct currency or keep syntax. /\help`, false, true);
+                sendMsgWithLog(ctx,`Խնդրում եմ ուղարկել ճիշտ ֆորմատով, օգնության համար /\help`, false, true);
               }
             });
           });
@@ -90,7 +88,7 @@ bot.on('text', (ctx) => {
               if (value) {
                 sendMsgWithLog(ctx,`${convertedMsg} is ${new Intl.NumberFormat().format(value)}`);
               } else {
-                sendMsgWithLog(ctx,`Please write correct currency or keep syntax. /\help`, false, true);
+                sendMsgWithLog(ctx,`Խնդրում եմ ուղարկել ճիշտ ֆորմատով, օգնության համար /\help`, false, true);
               }
             });
           });
@@ -99,7 +97,7 @@ bot.on('text', (ctx) => {
         }
         break;
       default:
-        sendMsgWithLog(ctx,`Please write a correctly. If you need a help /\help`, false, true);
+        sendMsgWithLog(ctx,`Խնդրում եմ ուղարկել ճիշտ ֆորմատով, օգնության համար /\help`, false, true);
         break;
     }
   }
